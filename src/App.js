@@ -61,11 +61,19 @@ class App extends Component {
 			let ingredientsHTML = Object.keys(ingredients).map( key => {
 				let quantity   = ingredients[key].quanity
 				let ingredient = ( ingredients[key].item )
-				return <div>Key: {quantity}, Value: {ingredient}</div>
+				return <div className="ingredient">
+					<span className="ingredient__quantity">{quantity} </span>
+					<span className="ingredient__item">{ingredient}</span>
+				</div>
 			} )
 
 			// Directions.
 			let directions = recipe.acf.recipe_directions;
+			let directionsHTML = Object.keys(directions).map( key => {
+				let instruction   = directions[key].instruction
+				return <div className="instruction"><p dangerouslySetInnerHTML={{ __html: instruction }} /></div>
+				
+			} )
 
 			// Total Time.
 			let totalTime = recipe.acf.recipe_total_time;
@@ -83,10 +91,14 @@ class App extends Component {
 			// 	<p><strong>Rating:</strong> {recipe.acf.rating}</p>
 			// 	<div><strong>Description:</strong><div dangerouslySetInnerHTML={ {__html: recipe.acf.description} } /></div>
 			return <div key={index}>
+				<p><strong>Title:</strong> {recipe.title.rendered}</p>
 				{imageHTML}
 				{ingredientsHTML}
-
-				<p><strong>Title:</strong> {recipe.title.rendered}</p>
+				{directionsHTML}
+				{totalTime}
+				{servingSize}
+				{authorName}
+				{sources}
 				
 			</div>
 		})
